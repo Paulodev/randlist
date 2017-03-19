@@ -8,7 +8,7 @@
  * Controller of the randlistApp
  */
 angular.module('randlistApp')
-  .controller('ListCtrl', function ($window, localStorageService) {
+  .controller('ListCtrl', function ($window, localStorageService, exportList) {
 
     var list = this;
 
@@ -17,6 +17,25 @@ angular.module('randlistApp')
       list.body = localStorageService.get('body') || [];
     }
 
+    function breackWithoutHeadOrBody() {
+      if (!list.head.data.lenght || !list.body.data.lenght) {
+        return;
+      }
+    }
+
+    function makeObjects(item, i) {
+      breackWithoutHeadOrBody();
+
+      var objetc = {};
+      item.data.forEach(function(data, i) {
+        console.log('fire', arguments);
+        angular.extend(objetc, {
+          [list.head.data[i]]: data
+        });
+      });
+
+      return objetc;
+    }
 
     function cleanString(string) {
       return string.trim().replace('\r', '');
@@ -71,6 +90,19 @@ angular.module('randlistApp')
         list.body.splice(list.body.indexOf(candidate), true);
         localStorageService.set('body', list.body);
       }
+    };
+
+    list.save = function() {
+      breackWithoutHeadOrBody();
+
+      var fileRandList = {
+        list: []
+      };
+
+      fileRandList.list = list.body
+        .map(makeObjects);
+
+      exportList.save('', angular.toJson(fileRandList));
     };
 
     load();
