@@ -28,3 +28,18 @@ table thead {
   font-family: Courier;
   color: #428bca;
 }
+
+@media print {
+  body {
+    padding: 0;
+    margin: 5px;
+  }
+
+  table {
+    font-size: small;
+  }
+
+  .container {
+    width: 100%;
+  }
+}
