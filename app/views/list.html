@@ -14,10 +14,22 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-4">
         <div class="btn btn-lg btn-primary fake-upload">
+          <i class="glyphicon glyphicon-open"></i>
           Carregar arquivo csv
           <input type="file"
             accept=".csv, application/vnd.ms-excel"
             on-read-file="list.proccess($fileContent, separator)">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-4">
+        <div class="btn btn-lg btn-primary fake-upload">
+          <i class="glyphicon glyphicon-open"></i>
+          Carregar backup do randlist
+          <input type="file"
+            accept=".randlist"
+            on-read-file="list.import($fileContent)">
         </div>
       </div>
     </div>
@@ -74,12 +86,14 @@
     <button type="button"
       class="btn btn-lg btn-danger"
       ng-click="list.clean()">
+      <i class="glyphicon glyphicon-trash"></i>
       Limpar lista
     </button>
     <button type="button"
       class="btn btn-lg btn-primary"
-      ng-click="list.save(list.head, list.body)">
-      Exportar lista
+      ng-click="list.save()">
+      <i class="glyphicon glyphicon-save"></i>
+      Gerar backup
     </button>
   </div>
 </form>
